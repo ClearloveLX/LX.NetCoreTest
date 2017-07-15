@@ -1,3 +1,0 @@
-﻿Scaffold-DbContext "Server=.;User Id=ClearloveLX;Password=GaoKe5845211314;Database=PyStudio.NetCore;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models //加-Force更新实体
-
-public PyStudio_NetCoreContext(DbContextOptions<PyStudio_NetCoreContext> options) : base(options) { }
