@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using LX.NETCoreTest.Model.PyClass;
 using LX.NETCoreTest.Model.Models;
 using static LX.NETCoreTest.Common.EnumHelper;
+using LX.NETCoreTest.Model.PyClass;
 using LX.NETCoreTest.Common;
+using LX.NETCoreTest.Web.Extends;
 
-namespace LX.NETCoreTest.Web.Controllers {
-    public class MemberController : Controller {
-
+namespace LX.NETCoreTest.Web.Controllers
+{
+    public class MemberController : Controller
+    {
         private readonly PyStudio_NetCoreContext _context;
 
         /// <summary>

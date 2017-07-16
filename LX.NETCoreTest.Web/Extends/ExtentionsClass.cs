@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LX.NETCoreTest.Web {
+namespace LX.NETCoreTest.Web.Extends
+{
     public static class ExtentionsClass {
         #region Controller扩展
         public static void MsgBox(this Controller controller, string msg, string key = "msgbox") {
@@ -61,7 +62,7 @@ namespace LX.NETCoreTest.Web {
                 t = JsonConvert.DeserializeObject<T>(strVal);
             }
             return t;
-        } 
+        }
         #endregion
     }
 }

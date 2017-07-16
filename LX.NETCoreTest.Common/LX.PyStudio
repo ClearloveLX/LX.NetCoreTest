@@ -1,3 +1,5 @@
 ﻿Scaffold-DbContext "Server=.;User Id=ClearloveLX;Password=GaoKe5845211314;Database=PyStudio.NetCore;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models //加-Force更新实体
 
 public PyStudio_NetCoreContext(DbContextOptions<PyStudio_NetCoreContext> options) : base(options) { }
+
+如果Bower包安装失败，删除掉Bower.json试试  疑问：如果我Bower.json文件内容很多并且很重要怎么办，还敢删掉吗？这个办法有没有更好的解决方案。
