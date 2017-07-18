@@ -8,15 +8,25 @@ using static LX.NETCoreTest.Common.EnumHelper;
 using LX.NETCoreTest.Model.PyClass;
 using LX.NETCoreTest.Common;
 using LX.NETCoreTest.Web.Extends;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace LX.NETCoreTest.Web.Controllers
 {
     public class MemberController : Controller
     {
         private readonly PyStudio_NetCoreContext _context;
+        private readonly PySelfSetting _selfSetting;
+        private readonly IMemoryCache _cache;
 
+
+        public MemberController(PyStudio_NetCoreContext context, IOptions<PySelfSetting> selfSetting, IMemoryCache cache) {
+            _context = context;
+            _selfSetting = selfSetting.Value;
+            _cache = cache;
+        }
         /// <summary>
-        /// ×¢²á
+        /// æ³¨å†Œ
         /// </summary>
         /// <returns></returns>
         public IActionResult Register() {
@@ -24,7 +34,7 @@ namespace LX.NETCoreTest.Web.Controllers
         }
 
         /// <summary>
-        /// ×¢²áPOST
+        /// æ³¨å†ŒPOST
         /// </summary>
         /// <param name="loginUser"></param>
         /// <returns></returns>
@@ -32,9 +42,9 @@ namespace LX.NETCoreTest.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("UserName,UserPwd,ComfirmPwd")] PyRegisterUser loginUser) {
             if (ModelState.IsValid) {
-                #region ÑéÖ¤
+                #region éªŒè¯
                 if (_context.ToUserInfo.Any(b => b.UserName.ToUpper() == loginUser.UserName.Trim().ToUpper())) {
-                    this.MsgBox("ÒÑ¾­´æÔÚÏàÍ¬µÄÕËºÅ£¡");
+                    this.MsgBox("å·²ç»å­˜åœ¨ç›¸åŒçš„è´¦å·ï¼");
                     return View(loginUser);
                 }
                 #endregion
@@ -44,9 +54,9 @@ namespace LX.NETCoreTest.Web.Controllers
                 userInfo.UserName = loginUser.UserName.Trim();
                 userInfo.UserPwd = PublicClass._Md5(loginUser.UserPwd.Trim());
                 userInfo.NickName = userInfo.UserName;
-                userInfo.Status = (int)EmUserStatus.ÆôÓÃ;
+                userInfo.Status = (int)EmUserStatus.å¯ç”¨;
                 userInfo.CreateTime = DateTime.Now;
-                userInfo.LevelNum = (int)EmLevelNum.×¢²á;
+                userInfo.LevelNum = (int)EmLevelNum.æ³¨å†Œ;
                 userInfo.Ips = this.GetUserIp();
                 userInfo.HeadPhoto = "/images/pystudio.png";
                 userInfo.Sex = false;
@@ -77,17 +87,17 @@ namespace LX.NETCoreTest.Web.Controllers
 
                     if (!string.IsNullOrWhiteSpace(pyUserInfo.Ips)) {
                         _context.ToUserLog.Add(new ToUserLog {
-                            CodeId = (int)EmLogCode.µÇÂ¼,
+                            CodeId = (int)EmLogCode.ç™»å½•,
                             CreateTime = DateTime.Now,
-                            Des = $"IP:{pyUserInfo.Ips},µÇÂ¼Ê±¼ä:{pyUserInfo.LoginTime.ToString("yyyy-MM-dd HH:mm:ss")}",
+                            Des = $"IP:{pyUserInfo.Ips},ç™»å½•æ—¶é—´:{pyUserInfo.LoginTime.ToString("yyyy-MM-dd HH:mm:ss")}",
                             UserId = userInfo.Id
                         });
                     }
 
                     _context.ToUserLog.Add(new ToUserLog {
-                        CodeId = (int)EmLogCode.»ı·Ö,
+                        CodeId = (int)EmLogCode.ç§¯åˆ†,
                         CreateTime = DateTime.Now,
-                        Des = $"¡¾×¢²á¡¿+{ (int)EmLevelNum.×¢²á}",
+                        Des = $"ã€æ³¨å†Œã€‘+{ (int)EmLevelNum.æ³¨å†Œ}",
                         UserId = userInfo.Id
                     });
 
@@ -97,7 +107,7 @@ namespace LX.NETCoreTest.Web.Controllers
                 }
                 #endregion
 
-                this.MsgBox("×¢²áÊ§°Ü£¬ÇëÉÔºóÖØÊÔ¡£");
+                this.MsgBox("æ³¨å†Œå¤±è´¥ï¼Œè¯·ç¨åé‡è¯•ã€‚");
                 return View(loginUser);
             }
             return View(loginUser);
