@@ -1,0 +1,127 @@
+@using LX.NETCoreTest.Common
+@using LX.NETCoreTest.Model.Models
+@model ToContent
+
+@{
+    var module = ViewData["module"] as ToModule;
+
+    ViewData["Title"] = $"我的相册 - 上传【{module.Name}】";
+    var userInfo = ViewData["MyUserInfo"] as LX.NETCoreTest.Model.PyClass.PyUserInfo;
+    userInfo.Status = 3;
+}
+
+<style type="text/css">
+    .choiceImg {
+        display: inline-block;
+        max-width: 100%;
+        width: 200px;
+        height: 200px;
+        padding: 4px;
+        line-height: 1.42857143;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        -webkit-transition: all .2s ease-in-out;
+        -o-transition: all .2s ease-in-out;
+        transition: all .2s ease-in-out;
+    }
+</style>
+
+<div class="row">
+    @await Html.PartialAsync("UserCenterGroup", userInfo)
+    <div class="col-md-10">
+        <div class="form-horizontal">
+            <h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span> @ViewData["Title"] <a href="/UserCenter/Modules" class="btn btn-default">返 回</a></h3>
+            <hr />
+            <form method="post" name="form_submit" action="/UserCenter/UpPhoto" enctype="multipart/form-data">
+                <input type="hidden" name="ModuleId" value="@Model.ModuleId" />
+                <div class="form-group">
+                    <label asp-for="Name" class="col-md-2 control-label">名称</label>
+                    <div class="col-md-10">
+                        <input asp-for="Name" required="required" maxlength="30" class="form-control" placeholder="给图片取个好听的名称吧。" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">选择图片</label>
+                    <div class="col-md-10">
+                        <input type="file" name="myPhoto" class="form-control" required="required" placeholder="选择图片" accept="image/gif,image/jpeg,image/jpg,image/png" multiple="multiple" />
+                        <p class="help-block">选择你想要留下的图片。</p>
+                        <p id="pmsg" style="color:red"></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">效果图</label>
+                    <div id="divShowPics" class="col-md-10">
+                        <img src="/images/default.svg" id="img_Photo" style="width: 200px; height: 200px;" class="img-thumbnail" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Status" class="col-md-2 control-label">权限</label>
+                    <div class="col-md-10">
+                        <label class="radio-inline" title="共有：表示其他人也能查看">
+                            <input type="radio" name="Status" checked="checked" value="@((int)EnumHelper.EmContentStatus.公有)"> 公有
+                        </label>
+                        <label class="radio-inline" title="私有：表示只有自己能够查看">
+                            <input type="radio" name="Status" value="@((int)EnumHelper.EmContentStatus.私有)"> 私有
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Des" class="col-md-2 control-label">描述</label>
+                    <div class="col-md-10">
+                        <textarea name="Des" asp-for="Des" class="form-control" rows="5" maxlength="200" placeholder="用简短的一串话语，描述下你对这图片的感想吧！"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input type="button" value="保 存" name="btnSubmit" class="btn btn-default" /> <a href="/UserCenter/Modules" class="btn btn-default">返 回</a>
+                        <span id="msgbox" style="color:red">@ViewData["msgbox"]</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12" style="color:#ddd">
+                        *注：<br />
+                        合理发图，有助于和他人分享；<br />
+                        爱留图是好的图片分享社区，如果发的图图片涉及到不友好事物，将可能被管理员删除或设置为私有；<br />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $.extend($.validator.messages, {
+            required: "<span style='color:red'>*. 必填项</span>"
+        });
+
+        $("input[name='myPhoto']").on("change", function () {
+            var files = this.files;
+            if (files) {
+                var msg = $("#pmsg");
+                msg.html("");
+                if (files.length > 10) {
+                    msg.html("每次上传图片的数量不能超过10张");
+                    return;
+                }
+                var _div = $("#divShowPics");
+                _div.html("");
+                for (var i in files) {
+                    var file = files[i];
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = new Image();
+                        img.src = e.target.result;
+                        img.className = "choiceImg";
+                        _div.append(img);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+    });
+</script>

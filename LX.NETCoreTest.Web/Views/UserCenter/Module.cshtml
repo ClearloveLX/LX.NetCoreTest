@@ -1,0 +1,52 @@
+@using LX.NETCoreTest.Common
+@using LX.NETCoreTest.Model.Models
+@using LX.NETCoreTest.Web.Extends
+@model List<ToContent>
+
+@{
+    var module = ViewData["module"] as ToContent;
+
+    ViewData["Title"] = $"我的相册 - 【{module.Name}】";
+    var userInfo = ViewData["MyUserInfo"] as LX.NETCoreTest.Model.PyClass.PyUserInfo;
+    userInfo.Status = 3;
+}
+
+<div class="row">
+    @await Html.PartialAsync("UserCenterGroup", userInfo)
+    <div class="col-md-10">
+        <h3><span class="glyphicon glyphicon-home" aria-hidden="true"></span> @ViewData["Title"] <a href="/UserCenter/Modules" class="btn btn-default">返 回</a> <a href="/UserCenter/UpPhoto/@module.Id" class="btn btn-default">快速上传</a></h3>
+        <hr />
+        <div class="row">
+            @if (Model.Count <= 0) {
+                <div class="text-center">
+                    <h4>暂无，你还没有留下点什么呢。 <a href="/UserCenter/UpPhoto/@module.Id" class="btn btn-default">快速上传</a></h4>
+                </div>
+            }
+            else {
+                foreach (var item in Model) {
+                    <div class="col-sm-6 col-md-4" title="@item.Name：@item.Des">
+                        <div class="thumbnail">
+                            <img src="@(item.MinPic??item.MaxPic)" style="height: 200px; width: 100%; display: block;">
+                            <div class="caption">
+                                <h4>@item.Name.FormatSubStr(9)（<span style="color:red">@Enum.GetName(typeof(EnumHelper.EmContentStatus), item.Status)</span>）</h4>
+                                <p>
+                                    @*@item.Des.FomartSubStr()*@
+                                </p>
+                                <p>
+                                    <a href="/Pictures/Picview/@item.Id" target="_blank" class="btn btn-default">浏览 <span class="badge">@item.ReadNum</span></a>
+                                    <a href="/Pictures/Picview/@item.Id" target="_blank" class="btn btn-default">点赞 <span class="badge">@item.ZanNum</span></a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class=" text-center">
+            <pager pager-option="ViewBag.PagerOption as PyPagerOption"></pager>
+        </div>
+    </div>
+</div>
+
+
+

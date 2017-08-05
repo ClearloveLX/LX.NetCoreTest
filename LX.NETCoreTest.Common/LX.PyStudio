@@ -1,4 +1,8 @@
-﻿Scaffold-DbContext "Server=.;User Id=ClearloveLX;Password=GaoKe5845211314;Database=PyStudio.NetCore;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models //加-Force更新实体
+Scaffold-DbContext "Server=.;User Id=ClearloveLX;Password=GaoKe5845211314;Database=PyStudio.NetCore;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models //加-Force更新实体
+
+		Invoke must be called on a background thread. 
+		Scaffold-DbContext : 无法将“Scaffold-DbContext”项识别为 cmdlet、函数、脚本 
+		解决方案：关闭NuGet管理器，关闭IDE，打开IDE打开NuGet 运行OK
 
 public PyStudio_NetCoreContext(DbContextOptions<PyStudio_NetCoreContext> options) : base(options) { }
 

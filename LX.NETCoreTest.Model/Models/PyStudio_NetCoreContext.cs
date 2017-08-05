@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -6,19 +6,76 @@ namespace LX.NETCoreTest.Model.Models
 {
     public partial class PyStudio_NetCoreContext : DbContext
     {
+        public virtual DbSet<ToContent> ToContent { get; set; }
+        public virtual DbSet<ToContentFiles> ToContentFiles { get; set; }
+        public virtual DbSet<ToModule> ToModule { get; set; }
         public virtual DbSet<ToUserInfo> ToUserInfo { get; set; }
         public virtual DbSet<ToUserLog> ToUserLog { get; set; }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-        //    optionsBuilder.UseSqlServer(@"Server=.;User Id=ClearloveLX;Password=GaoKe5845211314;Database=PyStudio.NetCore;");
-        //}
 
         public PyStudio_NetCoreContext(DbContextOptions<PyStudio_NetCoreContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ToContent>(entity =>
+            {
+                entity.ToTable("To_Content");
+
+                entity.Property(e => e.CreateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Des).HasColumnType("varchar(500)");
+
+                entity.Property(e => e.MaxPic).HasColumnType("varchar(200)");
+
+                entity.Property(e => e.MinPic).HasColumnType("varchar(30)");
+
+                entity.Property(e => e.Name).HasMaxLength(30);
+
+                entity.Property(e => e.ReadNum).HasDefaultValueSql("0");
+
+                entity.Property(e => e.ZanNum).HasDefaultValueSql("0");
+
+                entity.HasOne(d => d.Module)
+                    .WithMany(p => p.ToContent)
+                    .HasForeignKey(d => d.ModuleId)
+                    .HasConstraintName("FK_To_Content_To_Module");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ToContent)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_To_Content_To_UserInfo1");
+            });
+
+            modelBuilder.Entity<ToContentFiles>(entity =>
+            {
+                entity.ToTable("To_ContentFiles");
+
+                entity.Property(e => e.MaxPic)
+                    .HasColumnType("varchar(200)")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.MinPic).HasColumnType("varchar(30)");
+
+                entity.Property(e => e.ZanNum).HasDefaultValueSql("0");
+
+                entity.HasOne(d => d.Content)
+                    .WithMany(p => p.ToContentFiles)
+                    .HasForeignKey(d => d.ContentId)
+                    .HasConstraintName("FK_To_ContentFiles_To_Content");
+            });
+
+            modelBuilder.Entity<ToModule>(entity =>
+            {
+                entity.ToTable("To_Module");
+
+                entity.Property(e => e.CreateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Des).HasColumnType("varchar(500)");
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.Property(e => e.SortNum).HasDefaultValueSql("0");
+            });
+
             modelBuilder.Entity<ToUserInfo>(entity =>
             {
                 entity.ToTable("To_UserInfo");

@@ -1,0 +1,36 @@
+@using LX.NETCoreTest.Common
+@using LX.NETCoreTest.Model.Models
+@model IQueryable<ToModule>
+
+@{ 
+    ViewData["Title"] = "我的相册";
+    var userInfo = ViewData["MyUserInfo"] as LX.NETCoreTest.Model.PyClass.PyUserInfo;
+    userInfo.Status = 3;
+}
+
+<div class="row">
+    @await Html.PartialAsync("UserCenterGroup", userInfo)
+    <div class="col-md-10">
+        <h3><span class="glyphicon glyphicon-home" aria-hidden="true"></span> @ViewData["Title"]</h3>
+        <hr />
+        <div class="row">
+            @foreach (var item in Model) {
+                <div class="col-sm-6 col-md-4" title="@item.Name：@item.Des">
+                    <div class="thumbnail">
+                        <img src="~/images/default.svg" style="height: 200px; width: 100%; display: block;" />
+                        <div class="caption">
+                            <h3>@item.Name.FormatSubStr(10)</h3>
+                            <p>
+                                @item.Des.FormatSubStr(15)
+                            </p>
+                            <p>
+                                <a href="/UserCenter/Module/@item.Id-1" class="btn btn-default">浏 览</a>
+                                <a href="/UserCenter/UpPhoto/@item.Id" class="btn btn-default">留 图</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

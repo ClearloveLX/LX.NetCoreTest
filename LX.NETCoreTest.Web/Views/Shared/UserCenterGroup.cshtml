@@ -1,0 +1,16 @@
+@model LX.NETCoreTest.Model.PyClass.PyUserInfo
+
+<div class="col-md-2">
+    <div class="text-center">
+        <img class="img-thumbnail" src="@Model.HeadPhoto" style="width:140px;height:140px" alt="@Model.NickName" />
+        <a href="/UserCenter/AccountSettings" class="btn btn-default">个人信息</a>
+        <a href="/Usercenter/UpheadPhoto" class="btn btn-default">换头像</a>
+    </div>
+    <hr />
+    <div class="list-group">
+        <a href="/UserCenter/Index" class="list-group-item @(Model.Status==1?"active":"")"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>个人中心</a>
+        <a href="/UserCenter/AccountSettings" class="list-group-item @(Model.Status==2?"active":"")"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>账户设置</a>
+        <a href="/UserCenter/Modules" class="list-group-item @(Model.Status==3?"active":"")"><span class="glyphicon glyphicon-film" aria-hidden="true"></span>我的相册</a>
+        <a href="/UserCenter/AnQuanSettings" class="list-group-item @(Model.Status==4?"active":"")"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>安全设置</a>
+    </div>
+</div>

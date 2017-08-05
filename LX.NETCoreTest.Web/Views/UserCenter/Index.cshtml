@@ -1,0 +1,122 @@
+@using LX.NETCoreTest.Common
+
+@{
+    ViewData["Title"] = "个人中心";
+    var userInfo = ViewData["MyUserInfo"] as LX.NETCoreTest.Model.PyClass.PyUserInfo;
+    userInfo.Status = 1;
+}
+
+<div class="row">
+    @await Html.PartialAsync("UserCenterGroup",userInfo)
+    <div class="col-md-10">
+        <h3><span class="glyphicon glyphicon-home" aria-hidden="true"></span>@ViewData["Title"]</h3>
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        登录记录
+                    </div>
+                    <div class="panel-body">
+                        <table id="tabLoginLog" class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" style="border:0px">记录</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="loading"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-right"><a target="_blank" href="/UserCenter/UserLogs/@((int)EnumHelper.EmLogCode.登录)-1">更多》</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        爱心积分记录
+                    </div>
+                    <div class="panel-body">
+                        <table id="tabLevelLog" class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" style="border:0px">积分</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="loading"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-right"><a target="_blank" href="/UserCenter/UserLogs/@((int)EnumHelper.EmLogCode.积分)-1">更多》</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">统计信息</div>
+                    <div class="panel-body">
+                        <table id="tabStatis" class="table text-center">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" style="border:0px">统计名称</th>
+                                    <th class="text-center" style="border:0px">数值</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="loading"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">最近上传记录</div>
+                    <div class="panel-body">
+                        <table id="tabUserUp" class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" style="border:0px">描述名称</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="loading"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+        LXPyStudio.getUserLog("tabLoginLog",@((int)EnumHelper.EmLogCode.登录), 1, 5);
+        LXPyStudio.getUserLog("tabLevelLog",@((int)EnumHelper.EmLogCode.积分), 1, 5);
+        LXPyStudio.getUserStatis("tabStatis");
+        LXPyStudio.getUserUp("tabUserUp");
+    });
+</script>
+

@@ -7,6 +7,7 @@ namespace LX.NETCoreTest.Model.Models
     {
         public ToUserInfo()
         {
+            ToContent = new HashSet<ToContent>();
             ToUserLog = new HashSet<ToUserLog>();
         }
 
@@ -28,6 +29,7 @@ namespace LX.NETCoreTest.Model.Models
         public string Ips { get; set; }
         public int LevelNum { get; set; }
 
+        public virtual ICollection<ToContent> ToContent { get; set; }
         public virtual ICollection<ToUserLog> ToUserLog { get; set; }
     }
 }

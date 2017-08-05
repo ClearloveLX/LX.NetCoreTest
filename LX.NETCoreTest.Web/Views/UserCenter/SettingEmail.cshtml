@@ -1,0 +1,34 @@
+@{ 
+    ViewData["Title"] = "安全设置 - 绑定邮箱";
+    var userInfo = ViewData["MyUserInfo"] as LX.NETCoreTest.Model.PyClass.PyUserInfo;
+    userInfo.Status = 4;
+}
+
+<div class="row">
+    @await Html.PartialAsync("UserCenterGroup", userInfo)
+    <div class="col-md-10">
+        <h3><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> @ViewData["Title"]</h3>
+        <hr />
+        <form method="post" name="form_submit" action="/UserCenter/SettingEmail">
+            <div class="form-group">
+                <label>邮箱</label>
+                <input name="email" required="required" class="form-control" placeholder="邮箱如：gk1213656215@qq.com" maxlength="50" />
+            </div>
+            <div class="form-group">
+                <input type="button" value="保 存" name="btnSubmit" class="btn btn-default" /> <a href="/UserCenter/AnQuanSettings" class="btn btn-default">返 回</a>
+                <br />
+                <span id="msgbox" style="color:red">@ViewData["msgbox"]</span>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        $.extend($.validator.messages, {
+            required: "<span style='color:red'>*. 必填项</span>"
+        });
+    })
+</script>

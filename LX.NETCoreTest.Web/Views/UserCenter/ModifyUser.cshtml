@@ -1,0 +1,87 @@
+@model LX.NETCoreTest.Model.PyClass.PyUserInfo
+
+@{
+    ViewData["Title"] = "账户设置 - 修改基本信息";
+    var userInfo = ViewData["MyUserInfo"] as LX.NETCoreTest.Model.PyClass.PyUserInfo;
+    userInfo.Status = 2;
+}
+
+<div class="row">
+    @await Html.PartialAsync("UserCenterGroup", userInfo)
+    <div class="col-md-10">
+        <div class="form-horizontal">
+            <h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span> @ViewData["Title"]</h3>
+            <hr />
+            <div class="media">
+                <div class="media-left text-center">
+                    <img class="media-object img-thumbnail" src="@Model.HeadPhoto" style="width: 140px; height: 140px;" alt="@Model.NickName">
+                    <div style="padding-top:10px">
+                        <a href="/UserCenter/UpheadPhoto">换一换</a>
+                    </div>
+                </div>
+                <div class="media-body">
+                    <form method="post" name="form_submit" action="/UserCenter/ModifyUser">
+                        <input type="hidden" name="Id" value="@Model.Id" />
+                        <div class="form-group">
+                            <label asp-for="NickName" class="col-md-2 control-label">昵称</label>
+                            <div class="col-md-10">
+                                <input asp-for="NickName" required="required" maxlength="20" class="form-control" />
+                                <span asp-validation-for="NickName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="col-md-2 control-label">邮箱</label>
+                            <div class="col-md-10">
+                                @Model.Email.FormatPhone(startLen: 4, endLen: 4) <a href="/UserCenter/SettingEmail" class="btn btn-primary">@(string.IsNullOrWhiteSpace(userInfo.Email) ? "绑定邮箱" : "重新绑定")</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Tel" class="col-md-2 control-label">手机</label>
+                            <div class="col-md-10">
+                                <input asp-for="Tel" class="form-control" maxlength="15" placeholder="格式如：18301278716" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Sex" class="col-md-2 control-label">性别</label>
+                            <div class="col-md-10">
+                                <label class="radio-inline">
+                                    <input type="radio" name="Sex" @(Model.Sex ? "checked=\"checked\"" : "") value="True"> 男
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="Sex" @(!Model.Sex ? "checked=\"checked\"" : "") value="False"> 女
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Birthday" class="col-md-2 control-label">出生日期</label>
+                            <div class="col-md-10">
+                                <input asp-for="Birthday" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Blog" class="col-md-2 control-label">博客</label>
+                            <div class="col-md-10">
+                                <textarea asp-for="Blog" name="Blog" class="form-control" rows="3" maxlength="200" placeholder="完整的博客地址，有利于他人对你的认识。"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Introduce" class="col-md-2 control-label">自我介绍</label>
+                            <div class="col-md-10">
+                                <textarea name="Introduce" asp-for="Introduce" class="form-control" rows="3" maxlength="200" placeholder="用简短的一串字介绍下自己吧！"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input type="button" value="保 存" name="btnSubmit" class="btn btn-default" /> <a href="/UserCenter/AccountSettings" class="btn btn-default">返 回</a>
+                                <span id="msgbox" style="color:red">@ViewData["msgbox"]</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = "安全设置 - 绑定邮箱";
+    var userInfo = ViewData["MyUserInfo"] as LX.NETCoreTest.Model.PyClass.PyUserInfo;
+    userInfo.Status = 4;
+}
+
+<div class="row">
+    @await Html.PartialAsync("UserCenterGroup", userInfo)
+    <div class="col-md-10">
+        <h3><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> @ViewData["Title"]</h3>
+        <hr />
+        <div style="color:red">@ViewData["msgbox"]</div> <a href="/UserCenter/AccountSettings" class="btn btn-default">个人信息</a>
+    </div>
+</div>

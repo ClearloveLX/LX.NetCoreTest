@@ -1,0 +1,43 @@
+@model LX.NETCoreTest.Model.PyClass.PyUserInfo
+
+@{
+    ViewData["Title"] = "账户设置 - 上传头像";
+    var userInfo = ViewData["MyUserInfo"] as LX.NETCoreTest.Model.PyClass.PyUserInfo;
+    userInfo.Status = 2;
+}
+
+<div class="row">
+    @await Html.PartialAsync("UserCenterGroup", userInfo)
+    <div class="col-md-10">
+        <h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span> @ViewData["Title"]</h3>
+        <hr />
+        <form method="post" name="form_submit" action="/UserCenter/UpHeadPhoto" enctype="multipart/form-data">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <div class="form-group">
+                <img src="@Model.HeadPhoto" id="img_headPhoto" style="width: 140px; height: 140px;" required="required" class="img-thumbnail" />
+            </div>
+            <div class="form-group">
+                <input type="file" name="myHeadPhoto" class="form-control" placeholder="选择头像图片" accept="image/gif,image/jpeg,image/jpg,image/png" />
+                <p class="help-block">选择你自定义的头像图片。</p>
+            </div>
+            <input type="button" value="保 存" name="btnSubmit" class="btn btn-default" /> <a href="/UserCenter/AccountSettings" class="btn btn-default">返 回</a>
+            <span id="msgbox" style="color:red">@ViewData["msgbox"]</span>
+        </form>
+    </div>
+</div>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("input[name='myHeadPhoto']").on("change", function () {
+            var file = this.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) { 
+                    $("#img_headPhoto").attr("src", e.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>

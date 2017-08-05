@@ -1,0 +1,18 @@
+
+@{
+    ViewData["Title"] = "安全设置";
+    var userInfo = ViewData["MyUserInfo"] as LX.NETCoreTest.Model.PyClass.PyUserInfo;
+    userInfo.Status = 4;
+}
+
+<div class="row">
+    @await Html.PartialAsync("UserCenterGroup",userInfo)
+    <div class="col-md-10">
+        <h3><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>@ViewData["Title"]</h3>
+        <hr />
+        1.绑定邮箱:保证您的<b>账号安全</b>,能够快捷的<b>找回密码</b>以及方便登录。<a href="/UserCenter/SettingEmail" class="btn btn-primary">@(string.IsNullOrWhiteSpace(userInfo.Email) ? "绑定邮箱" : "重新绑定")</a>
+        <hr />
+        2. 绑定手机：快速掌握“爱留图”的<b>最新动态</b>，以及快捷的找回密码。<span style="color:red">暂未开通</span>
+    </div>
+</div>
+

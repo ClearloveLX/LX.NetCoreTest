@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -35,6 +35,43 @@ namespace LX.NETCoreTest.Common {
 
             绑定邮箱 = 6,
             绑定手机号码 = 7
+        }
+
+        /// <summary>
+        /// 内容查看权限
+        /// </summary>
+        public enum EmContentStatus {
+            删除 = 0,
+            公有 = 1,
+            私有 = 2
+        }
+
+        /// <summary>
+        /// 活动状态
+        /// </summary>
+        public enum EmModuleStatus {
+            禁用 = 0,
+            启用 = 1
+        }
+
+        /// <summary>
+        /// 邮件模板
+        /// </summary>
+        public enum EmEmailTpl {
+            /// <summary>
+            /// 消息通知
+            /// </summary>
+            MsgBox = 1,
+
+            /// <summary>
+            /// 绑定邮箱
+            /// </summary>
+            SettingEmail = 2,
+
+            /// <summary>
+            /// 绑定手机
+            /// </summary>
+            SettingTel = 3
         }
     }
 }

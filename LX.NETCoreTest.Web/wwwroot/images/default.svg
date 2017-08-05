@@ -1,0 +1,29 @@
+<svg width="171" height="180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+ <!--
+Source URL: holder.js/100%x180
+Created with Holder.js 2.6.0.
+Learn more at http://holderjs.com
+(c) 2012-2015 Ivan Malopinsky - http://imsky.co
+-->
+ <defs>
+  <style type="text/css">
+   <![CDATA[#holder_15b5c4308cf text { fill:#AAAAAA;font-weight:bold;font-family:Arial, Helvetica, Open Sans, sans-serif, monospace;font-size:10pt } ]]>
+  </style>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="holder_15b5c4308cf">
+   <rect id="svg_1" fill="#EEEEEE" height="180" width="171"/>
+   <g id="svg_2">
+    <text id="svg_3" y="94.5" x="61">171x180</text>
+   </g>
+  </g>
+  <rect id="svg_5" height="29" width="64" y="36" x="52.5" opacity="0.5" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#fff"/>
+  <rect stroke="#000" id="svg_6" height="98" width="82.000004" y="34.000005" x="46.5" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" fill="#fff"/>
+  <text stroke="#000" transform="matrix(0.9722222089767456,0,0,1.2424242496490479,1.5138896107673645,-10.424242734909058) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_7" y="84.097561" x="54.5" fill-opacity="null" stroke-opacity="null" stroke-width="0" fill="#000000">爱留图</text>
+ </g>
+</svg>

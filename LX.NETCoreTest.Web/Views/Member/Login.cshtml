@@ -1,0 +1,42 @@
+@model LX.NETCoreTest.Model.PyClass.PyLoginUser
+
+    @{
+        ViewData["Title"] = "登录";
+    }
+
+<h3><span class="glyphicon glyphicon-send" aria-hidden="true"></span> 登录</h3>
+<form name="form_submit" asp-action="Login">
+    <div class="form-horizontal">
+        <h4>爱留图：即刻登录，让我们一起留存珍惜的图片吧。</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="UserName" class="col-md-2 control-label">账号</label>
+            <div class="col-md-10">
+                <input asp-for="UserName" required="required" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UserPwd" class="col-md-2 control-label">密码</label>
+            <div class="col-md-10">
+                <input asp-for="UserPwd" required="required" class="form-control" />
+                <span asp-validation-for="UserPwd" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="登 录" name="btnSubmit" class="btn btn-default" /> <a href="/Member/Register" title="没账号来这里注册吧">没账号这里注册</a>
+                <span id="msgbox" style="color:red">@ViewData["msgbox"]</span>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="ReturnUrl" value="@ViewData["returnUrl"]" />
+</form>
+<br />
+<div>
+    <a href="/Member/Register">没账号这里注册</a> | <a href="/Member/ForgetPassword">忘记密码？</a>
+</div>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

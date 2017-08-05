@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -108,5 +108,14 @@ namespace LX.NETCoreTest.Model.PyClass {
                 return val >= 1 ? val : 1;
             }
         }
+    }
+
+    /// <summary>
+    /// 接口暴露实体
+    /// </summary>
+    public class PyStudioData {
+        public bool IsOk { get; set; }
+        public string Msg { get; set; }
+        public object Data { get; set; }
     }
 }

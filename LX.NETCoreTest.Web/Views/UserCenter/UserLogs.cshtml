@@ -1,0 +1,43 @@
+@using LX.NETCoreTest.Common
+@using LX.NETCoreTest.Model.Models
+@using LX.NETCoreTest.Model.PyClass
+@using LX.NETCoreTest.Web.Extends
+@model IEnumerable<ToUserLog>
+
+@{ 
+    var userLog = ViewData["userLog"] as ToUserLog;
+    ViewData["Title"] = userLog.Des;
+    var userInfo = ViewData["MyUserInfo"] as PyUserInfo;
+    userInfo.Status = 1;
+}
+
+<div class="row">
+    @await Html.PartialAsync("UserCenterGroup", userInfo)
+    <div class="col-md-10">
+        <h3><span class="glyphicon glyphicon-home" aria-hidden="true"></span> 个人中心</h3>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <table id="tabLog" class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="border:0px">@userLog.Des</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model) {
+                            <tr>
+                                <td>
+                                    @item.Des
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class=" text-center">
+                    <pager pager-option="ViewBag.PagerOption as PyPagerOption"></pager>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
