@@ -87,7 +87,7 @@ namespace LX.NETCoreTest.Common {
                     client.AuthenticationMechanisms.Remove("XOAUTH2");
 
                     //qq邮箱，密码(安全设置短信获取后的密码)
-                    client.Authenticate("gk1213656215@qq.com", "ufiaszkkulbabejh");
+                    client.Authenticate("gk1213656215@qq.com", "cmkcmacsbpsbjhga");
 
                     client.Send(message);
                     client.Disconnect(true);

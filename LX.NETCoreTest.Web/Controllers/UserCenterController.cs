@@ -554,7 +554,7 @@ namespace LX.NETCoreTest.Web.Controllers {
             //读取模板
             var tpl = await PublicClass._GetHtmlTpl(EmEmailTpl.SettingEmail, _selfSetting.EmailTplPath);
             if (string.IsNullOrWhiteSpace(tpl)) {
-                this.MsgBox("发送绑定邮件失败，请稍后重试");
+                this.MsgBox("发送绑定邮件失败，请稍后重试!");
                 return View();
             }
             tpl = tpl.Replace("{name}", _MyUserInfo.NickName).Replace("{content}", $"您正在使用<a href='{appUrl}'>爱留图网</a>邮箱绑定功能，请点击以下链接确认绑定邮箱<a href='{comfirmUrl}'>{comfirmUrl}</a>；注意该地址有效时间{timeOut}分钟。");
@@ -573,7 +573,7 @@ namespace LX.NETCoreTest.Web.Controllers {
             if (!DateTime.TryParse(expire, out var expires)) {
                 return RedirectToAction(nameof(HomeController.Error), "Home", new { msg = "无效的请求！" });
             }
-            else if (expires.AddMinutes(30) < DateTime.Now) {
+            else if (expires.AddMinutes(30) > DateTime.Now) {
                 return RedirectToAction(nameof(HomeController.Error), "Home", new { msg = "请求已过期，重新操作！" });
             }
             t = t.Replace("0.9527", "");
