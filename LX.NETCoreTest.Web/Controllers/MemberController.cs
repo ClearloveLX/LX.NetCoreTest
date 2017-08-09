@@ -214,8 +214,12 @@ namespace LX.NETCoreTest.Web.Controllers {
             }
             return View(loginUser);
         }
-        #endregion
 
+
+        /// <summary>
+        /// 获取用户登录信息
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult GetLoginInfo() {
             var data = new PyStudioData();
@@ -227,6 +231,17 @@ namespace LX.NETCoreTest.Web.Controllers {
             }
             data.Msg = data.IsOk ? "已登录" : "未登录";
             return Json(data);
+        }
+        #endregion
+
+        /// <summary>
+        /// 注销
+        /// </summary>
+        /// <returns>登陆页面</returns>
+        [HttpGet]
+        public IActionResult LoginOut() {
+            HttpContext.Session.Remove(HttpContext.Session.SessionKey());
+            return RedirectToAction(nameof(MemberController.Login));
         }
 
         #region 忘记密码
@@ -312,7 +327,7 @@ namespace LX.NETCoreTest.Web.Controllers {
 
             email = email.Trim().ToLower();
             if (!DateTime.TryParse(expire, out var expires)) { return RedirectToAction(nameof(HomeController.Error), "home", new { msg = "无效的请求！" }); }
-            else if (expires.AddMinutes(30) < DateTime.Now) {
+            else if (expires.AddMinutes(30) > DateTime.Now) {
                 return RedirectToAction(nameof(HomeController.Error), "Home", new { msg = "请求已过期，重新操作！" });
             }
 
@@ -333,7 +348,11 @@ namespace LX.NETCoreTest.Web.Controllers {
             return View(new PyRegisterUser { UserName = email });
         }
 
-
+        /// <summary>
+        /// 提交重置的密码
+        /// </summary>
+        /// <param name="registUser"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmPassword([Bind("UserName", "UserPwd", "ComfirmPwd")]PyRegisterUser registUser) {
@@ -346,33 +365,38 @@ namespace LX.NETCoreTest.Web.Controllers {
                     this.MsgBox("确认密码不能为空！");
                     return View(registUser);
                 }
-                else if (registUser.UserPwd!=registUser.ComfirmPwd) {
+                else if (registUser.UserPwd != registUser.ComfirmPwd) {
                     this.MsgBox("密码和确认密码不相同！");
                     return View(registUser);
                 }
 
                 var key = $"checkConfirmPwd{registUser.UserName}";
-                if (!_cache.TryGetValue<PyUserInfo>(key,out var checkUser)) {
+                if (!_cache.TryGetValue<PyUserInfo>(key, out var checkUser)) {
                     return RedirectToAction(nameof(HomeController.Error), "Home", new { msg = "请求已过期，重新操作！" });
                 }
 
                 var user = _context.ToUserInfo.Where(b => b.Id == checkUser.Id && b.Email == checkUser.Email).SingleOrDefault();
-                if (user==null) {
+                if (user == null) {
                     _cache.Remove(key);
                     return RedirectToAction(nameof(HomeController.Error), "Home", new { msg = "重置密码失败，请稍后重试！" });
+                }
+
+                if (user.UserPwd==PublicClass._Md5(registUser.UserPwd.Trim())) {
+                    this.MsgBox("新密码与旧密码不能相同！请确认。");
+                    return View(registUser);
                 }
 
                 user.UserPwd = PublicClass._Md5(registUser.UserPwd.Trim());
                 var result = await _context.SaveChangesAsync();
                 if (result > 0) {
-                    _context.Remove(key);
+                    _cache.Remove(key);
                     this.MsgBox("重置密码成功！");
                 }
                 else {
                     this.MsgBox("重置密码失败！");
                 }
             }
-            return View();
+            return View(registUser);
         }
         #endregion
     }
