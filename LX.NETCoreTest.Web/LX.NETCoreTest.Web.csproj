@@ -18,6 +18,15 @@
   <ItemGroup>
     <Content Include="wwwroot\images\ailiutu_user.png" />
     <Content Include="wwwroot\images\default.svg" />
+    <Content Include="wwwroot\images\load.gif" />
+    <Content Include="wwwroot\js\jQuery.cxSelect-1.4.1\index.html" />
+    <Content Include="wwwroot\js\jQuery.cxSelect-1.4.1\js\cityData.json" />
+    <Content Include="wwwroot\js\jQuery.cxSelect-1.4.1\js\cityData.min.json" />
+    <Content Include="wwwroot\js\jQuery.cxSelect-1.4.1\js\globalData.json" />
+    <Content Include="wwwroot\js\jQuery.cxSelect-1.4.1\js\globalData.min.json" />
+    <Content Include="wwwroot\js\jQuery.cxSelect-1.4.1\js\jquery.cxselect.js" />
+    <Content Include="wwwroot\js\jQuery.cxSelect-1.4.1\js\jquery.cxselect.min.js" />
+    <Content Include="wwwroot\js\jQuery.cxSelect-1.4.1\README.md" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
@@ -41,6 +50,7 @@
     <ProjectReference Include="..\LX.NETCoreTest.Model\LX.NETCoreTest.Model.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\" />
     <Folder Include="wwwroot\CorePyStudio\Image\" />
     <Folder Include="wwwroot\CorePyStudio\ContentImage\" />
     <Folder Include="wwwroot\tpl\" />

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="keywords" content="爱留图,图片,爱,图,摄影,图库,一张图" />
     <meta name="description" content="爱留图，留下难忘的一瞬间;目的是收集留存引发大众瞬间灵感的画面，个人旅游风采的画面，团团圆圆温馨场景的画面，以及定期专栏开设的活动画面的收集。">
-    <meta name="author" content="神牛步行3">
+    <meta name="author" content="LX.PyStudio">
     <title>爱留图 - @(ViewData["Title"] ?? "留下难忘的一瞬间")</title>
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -18,6 +18,8 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
     </environment>
+    @RenderSection("PyStyle",required:false)
+    @RenderSection("TopScript",required:false)
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -69,3 +71,4 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
 </environment>
+@RenderSection("PyScript",required:false)

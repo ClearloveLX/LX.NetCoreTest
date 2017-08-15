@@ -21,7 +21,6 @@ var PyStudio = function () {
         },
         getUserInfo: function () {
             $.post("/Member/GetLoginInfo?t=" + now.getTime(), function (data) {
-                console.log(data);
                 var loginArr = [];
                 if (data) {
                     if (data.isOk && data.data !== null) {
@@ -42,7 +41,6 @@ var PyStudio = function () {
             }
 
             $.post("/UserCenter/UserLog", { codeId: codeId, page: page, pageSize: pageSize }, function (data) {
-                console.log(data);
                 if (data) {
                     if (!data.isOk) {
                         $("#" + tabId + " tbody").html('<tr><td>获取失败，请稍后重试</td></tr>');
@@ -68,7 +66,6 @@ var PyStudio = function () {
             }
 
             $.post("/UserCenter/UserStatis", { x: 520 }, function (data) {
-                console.log(data);
                 if (data) {
                     if (!data.isOk) {
                         $("#" + tabId + " tbody").html('<tr><td colspan="2">获取失败，稍后重试</td></tr>');
@@ -91,7 +88,6 @@ var PyStudio = function () {
         getUserUp: function (tabId) {
             if (tabId.length <= 0) { return; }
             $.post("/UserCenter/UserUp", { x: 520 }, function (data) {
-                console.log(data);
                 if (data) {
                     if (!data.isOk) { $("#" + tabId + " tbody").html('<tr><td>获取失败，稍后重试</td></tr>'); return; }
                     var trArr = [];

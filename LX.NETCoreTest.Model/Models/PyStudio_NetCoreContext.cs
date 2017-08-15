@@ -6,6 +6,7 @@ namespace LX.NETCoreTest.Model.Models
 {
     public partial class PyStudio_NetCoreContext : DbContext
     {
+        public virtual DbSet<InfoMember> InfoMember { get; set; }
         public virtual DbSet<ToContent> ToContent { get; set; }
         public virtual DbSet<ToContentFiles> ToContentFiles { get; set; }
         public virtual DbSet<ToModule> ToModule { get; set; }
@@ -16,6 +17,24 @@ namespace LX.NETCoreTest.Model.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<InfoMember>(entity =>
+            {
+                entity.HasKey(e => e.MemberId)
+                    .HasName("PK_Info_Member");
+
+                entity.ToTable("Info_Member");
+
+                entity.Property(e => e.MemberId).HasColumnName("Member_Id");
+
+                entity.Property(e => e.MemberCode)
+                    .HasColumnName("Member_Code")
+                    .HasColumnType("varchar(50)");
+
+                entity.Property(e => e.MemberName)
+                    .HasColumnName("Member_Name")
+                    .HasColumnType("varchar(50)");
+            });
+
             modelBuilder.Entity<ToContent>(entity =>
             {
                 entity.ToTable("To_Content");

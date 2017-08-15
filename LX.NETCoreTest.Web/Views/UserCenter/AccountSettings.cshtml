@@ -35,7 +35,7 @@
                 <h5 class="media-heading">性别：@(Model.Sex ? "男" : "女")</h5>
                 <h5 class="media-heading">生日：@Model.Birthday</h5>
                 <h5 class="media-heading">手机：@Model.Tel.FormatPhone()</h5>
-                <h5 class="media-heading">邮箱：@Model.Email.FormatPhone()</h5>
+                <h5 class="media-heading">邮箱：@Model.Email.FormatEmail()</h5>
                 <h5 class="media-heading">博客：@Model.Blog</h5>
                 自我介绍：@Model.Introduce
             </div>

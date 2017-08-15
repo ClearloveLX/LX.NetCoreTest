@@ -1,4 +1,4 @@
-﻿body {
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -34,4 +34,10 @@ textarea {
     .carousel-caption {
         display: none;
     }
+}
+
+.loading {
+    width:100%;
+    height:32px;
+    background:url('../images/load.gif') no-repeat center top;
 }

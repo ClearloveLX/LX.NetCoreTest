@@ -111,8 +111,39 @@ namespace LX.NETCoreTest.Web {
                 start = val;
             }
 
-            if (len-endLen > startLen) {
-                end = val.Substring(len-endLen, endLen);
+            if (len - endLen > startLen) {
+                end = val.Substring(len - endLen, endLen);
+            }
+
+            return string.Format("{0}***{1}", start, end);
+        }
+
+        /// <summary>
+        /// 格式化保密邮箱
+        /// </summary>
+        /// <param name="val"></param>
+        /// <param name="startLen"></param>
+        /// <returns></returns>
+        public static string FormatEmail(this string val, int startLen = 3) {
+            var array = val.Split('@');
+            int endLen = array[array.Length - 1].Length + 1;
+            if (string.IsNullOrWhiteSpace(val)) {
+                return "";
+            }
+
+            var len = val.Trim().Length;
+            var start = string.Empty;
+            var end = string.Empty;
+
+            if (len > startLen) {
+                start = val.Substring(0, startLen);
+            }
+            else {
+                start = val;
+            }
+
+            if (len - endLen > startLen) {
+                end = val.Substring(len - endLen, endLen);
             }
 
             return string.Format("{0}***{1}", start, end);

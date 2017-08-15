@@ -10,7 +10,7 @@ using MailKit.Net.Smtp;
 
 namespace LX.NETCoreTest.Common {
     public class PublicClass {
-         
+
         #region Md5加密
         /// <summary>
         /// MD5
@@ -128,6 +128,48 @@ namespace LX.NETCoreTest.Common {
                 throw new Exception(ex.Message);
             }
             return content;
+        }
+
+        #endregion
+    }
+
+    public class PyStudioClass {
+        #region 数据后处理
+
+        /// <summary>
+        /// 获取Code 为空默认为100000
+        /// </summary>
+        /// <param name="MemCode"></param>
+        /// <returns></returns>
+        public string GetCode(string MemCode) {
+            string ResultCode = string.Empty;
+            if (MemCode == null) {
+                ResultCode = "100000";
+            }
+            else {
+                ResultCode = MemCode.ToString();
+            }
+            return ResultCode;
+        }
+
+        /// <summary>
+        /// xxx000的字符加1
+        /// </summary>
+        /// <param name="Code"></param>
+        /// <returns></returns>
+        public string TranCode(string Code) {
+            string a = string.Empty;
+            string b = string.Empty;
+            for (int i = 0; i < Code.Length; i++) {
+                try {
+                    b += Convert.ToInt32(Code.Substring(i, 1));
+                }
+                catch {
+                    a += Code.Substring(i, 1);
+                }
+            }
+            string result = a + (Convert.ToInt32(b) + 1).ToString().PadLeft(b.Length, '0');
+            return result;
         }
 
         #endregion
